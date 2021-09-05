@@ -44,7 +44,8 @@ class SecurityController extends AbstractController
     public function newUser(EntityManagerInterface $doctrine, UserPasswordEncoderInterface $encoder)
     {
         $user = new User();
-        $user -> setUsername('luisao');
+        $user -> setUsername('admin');
+        $user ->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
 
         $password = $encoder->encodePassword($user, '12345');
 

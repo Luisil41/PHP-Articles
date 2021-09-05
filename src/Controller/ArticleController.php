@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -20,6 +21,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/", name="article_list")
      * @Method({"GET"})
+     * @IsGranted ("ROLE_USER")
      */
     public function index() {
 
@@ -31,6 +33,7 @@ class ArticleController extends AbstractController
       /**
      * @Route("/article/new", name="new_article")
      * Method({"GET", "POST"})
+     * @IsGranted ("ROLE_USER")
      */
     public function new(Request $request) {
       $article = new Article();
@@ -67,6 +70,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/edit/{id}", name="edit_article")
      * Method({"GET", "POST"})
+     * @IsGranted ("ROLE_USER")
      */
     public function edit(Request $request, $id) {
       $article = new Article();
@@ -102,6 +106,7 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/article/{id}", name="article_show")
+     * @@IsGranted ("ROLE_USER")
      */
     public function show($id) {
         $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
@@ -112,6 +117,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/article/delete/{id}")
      * @Method({"DELETE"})
+     * @IsGranted ("ROLE_ADMIN")
      */
     public function delete(Request $request, $id) {
       $article = $this->getDoctrine()->getRepository(Article::class)->find($id);
